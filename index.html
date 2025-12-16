@@ -1,320 +1,273 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Linns 30th</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Linns 30th</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=IBM+Plex+Mono:wght@300..600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=IBM+Plex+Mono:wght@300..600&display=swap" rel="stylesheet">
 
-  <style>
-    :root{
-      --bg:#000;
-      --panel:rgba(255,255,255,.04);
-      --text:#fff;
-      --muted:rgba(255,255,255,.6);
-      --border:rgba(255,255,255,.18);
-    }
+<style>
+:root{
+  --bg:#000;
+  --panel:rgba(255,255,255,.04);
+  --text:#fff;
+  --muted:rgba(255,255,255,.6);
+  --border:rgba(255,255,255,.18);
+}
 
-    *{ box-sizing:border-box; margin:0; padding:0; }
+*{box-sizing:border-box;margin:0;padding:0;}
 
-    body{
-      background:#000;
-      color:var(--text);
-      font-family:Inter,system-ui,-apple-system,sans-serif;
-      min-height:100vh;
-      display:flex;
-      justify-content:center;
-      padding:28px 16px;
-      overflow-x:hidden;
-    }
+body{
+  background:#000;
+  color:#fff;
+  font-family:Inter,system-ui,-apple-system,sans-serif;
+  min-height:200vh;
+  display:flex;
+  justify-content:center;
+  padding:28px 16px;
+}
 
-    /* grain */
-    body::after{
-      content:"";
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
-      mix-blend-mode:overlay;
-    }
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+  mix-blend-mode:overlay;
+}
 
-    /* FULL SCREEN BLINK */
-    .blink{
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      background:#fff;
-      opacity:0;
-      z-index:9999;
-      animation: blink 1.1s infinite;
-      mix-blend-mode:screen;
-    }
+.flash{
+  position:fixed;
+  inset:0;
+  background:#fff;
+  opacity:0;
+  pointer-events:none;
+  z-index:9999;
+}
 
-    @keyframes blink{
-      0%,80%{opacity:0}
-      82%{opacity:.18}
-      85%{opacity:0}
-      90%{opacity:.1}
-      100%{opacity:0}
-    }
+.wrap{
+  width:min(920px,100%);
+  display:grid;
+  gap:22px;
+}
 
-    .wrap{
-      width:min(920px,100%);
-      display:grid;
-      gap:22px;
-    }
+/* HERO */
+header{
+  border:1px solid var(--border);
+  padding:26px 22px;
+  position:relative;
+  overflow:hidden;
+}
 
-    header{
-      position:relative;
-      border:1px solid var(--border);
-      padding:26px 22px;
-      overflow:hidden;
-    }
+header::before{
+  content:"";
+  position:absolute;
+  inset:-40% -10%;
+  background:linear-gradient(
+    transparent 0%,
+    rgba(255,255,255,.12) 48%,
+    rgba(255,255,255,.28) 50%,
+    rgba(255,255,255,.12) 52%,
+    transparent 100%
+  );
+  animation:scan 2.5s linear infinite;
+  mix-blend-mode:screen;
+}
 
-    header::before{
-      content:"";
-      position:absolute;
-      inset:-40% -10%;
-      background:linear-gradient(
-        transparent 0%,
-        rgba(255,255,255,.15) 48%,
-        rgba(255,255,255,.3) 50%,
-        rgba(255,255,255,.15) 52%,
-        transparent 100%
-      );
-      animation:scan 2.2s linear infinite;
-      mix-blend-mode:screen;
-    }
+@keyframes scan{to{transform:translateY(60%)}}
 
-    @keyframes scan{ to{ transform:translateY(60%); } }
+.eyebrow{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:12px;
+  letter-spacing:.25em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
 
-    .eyebrow{
-      font-family:"IBM Plex Mono",monospace;
-      font-size:12px;
-      letter-spacing:.25em;
-      text-transform:uppercase;
-      color:var(--muted);
-    }
+h1{
+  margin-top:14px;
+  font-size:clamp(44px,7vw,92px);
+  font-weight:600;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  line-height:.92;
+  position:relative;
+}
 
-    h1{
-      margin-top:14px;
-      font-size:clamp(44px,7vw,92px);
-      font-weight:600;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      line-height:.92;
-      position:relative;
-    }
+.countdown{
+  margin-top:10px;
+  font-family:"IBM Plex Mono",monospace;
+  font-size:13px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
 
-    h1::before,
-    h1::after{
-      content:attr(data-text);
-      position:absolute;
-      left:0; top:0;
-      width:100%;
-      mix-blend-mode:screen;
-      pointer-events:none;
-    }
+.subline{
+  margin-top:10px;
+  font-family:"IBM Plex Mono",monospace;
+  font-size:13px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
 
-    h1::before{
-      transform:translate(2px,-1px);
-      animation:glitchA 1.2s infinite steps(2,end);
-      opacity:.5;
-    }
+/* CONTENT */
+main{display:grid;gap:22px;}
 
-    h1::after{
-      transform:translate(-2px,1px);
-      animation:glitchB 1.6s infinite steps(2,end);
-      opacity:.35;
-    }
+.card{
+  border:1px solid var(--border);
+  background:var(--panel);
+}
 
-    @keyframes glitchA{
-      0%{clip-path:inset(0 0 85% 0)}
-      50%{clip-path:inset(40% 0 25% 0)}
-      100%{clip-path:inset(0 0 85% 0)}
-    }
+.inner{padding:22px;}
 
-    @keyframes glitchB{
-      0%{clip-path:inset(80% 0 0 0)}
-      50%{clip-path:inset(20% 0 50% 0)}
-      100%{clip-path:inset(80% 0 0 0)}
-    }
+.row{
+  display:flex;
+  justify-content:space-between;
+  padding:14px 0;
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
 
-    .subline{
-      margin-top:10px;
-      font-family:"IBM Plex Mono",monospace;
-      font-size:13px;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      color:var(--muted);
-    }
+.label{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:12px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
 
-    main{
-      display:grid;
-      gap:22px;
-    }
+.value{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:13px;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
 
-    .card{
-      border:1px solid var(--border);
-      background:var(--panel);
-    }
+/* NEW COOLER TEXT STYLE */
+.editorial-note{
+  margin-top:18px;
+  font-family:"IBM Plex Mono",monospace;
+  font-size:12.5px;
+  letter-spacing:.12em;
+  line-height:1.7;
+  color:rgba(255,255,255,.55);
+}
 
-    .inner{ padding:22px; }
+/* FORM */
+form{
+  padding:18px 22px 22px;
+  display:grid;
+  gap:14px;
+}
 
-    .row{
-      display:flex;
-      justify-content:space-between;
-      padding:14px 0;
-      border-bottom:1px solid rgba(255,255,255,.12);
-      gap:18px;
-    }
+input,select,textarea{
+  background:transparent;
+  border:1px solid var(--border);
+  padding:14px;
+  color:#fff;
+  font-family:"IBM Plex Mono",monospace;
+  font-size:14px;
+}
 
-    .row:last-child{ border-bottom:none; }
+textarea{min-height:90px}
 
-    .label{
-      font-family:"IBM Plex Mono",monospace;
-      font-size:12px;
-      letter-spacing:.22em;
-      text-transform:uppercase;
-      color:var(--muted);
-    }
+button{
+  padding:14px;
+  background:#fff;
+  color:#000;
+  border:none;
+  font-family:"IBM Plex Mono",monospace;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  cursor:pointer;
+}
 
-    .value{
-      font-family:"IBM Plex Mono",monospace;
-      font-size:13px;
-      letter-spacing:.06em;
-      text-transform:uppercase;
-    }
-
-    .note{
-      margin-top:18px;
-      color:var(--muted);
-      line-height:1.6;
-    }
-
-    form{
-      padding:18px 22px 22px;
-      display:grid;
-      gap:14px;
-    }
-
-    input,select,textarea{
-      background:transparent;
-      border:1px solid var(--border);
-      padding:14px;
-      color:#fff;
-      font-family:"IBM Plex Mono",monospace;
-      font-size:14px;
-    }
-
-    textarea{ min-height:90px; }
-
-    button{
-      padding:14px;
-      background:#fff;
-      color:#000;
-      border:none;
-      font-family:"IBM Plex Mono",monospace;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      cursor:pointer;
-    }
-
-    #form-message{
-      padding:0 22px 22px;
-      font-family:"IBM Plex Mono",monospace;
-      font-size:13px;
-      color:var(--muted);
-      text-align:center;
-    }
-  </style>
+#form-message{
+  padding:0 22px 22px;
+  font-family:"IBM Plex Mono",monospace;
+  font-size:13px;
+  color:var(--muted);
+  text-align:center;
+}
+</style>
 </head>
 
 <body>
-  <div class="blink"></div>
+<div class="flash" id="flash"></div>
 
-  <div class="wrap">
-    <header>
-      <div class="eyebrow">Invitation</div>
-      <h1 data-text="Linns 30th">Linns 30th</h1>
-      <div class="subline">Spain • Two Nights • House Stay</div>
-    </header>
+<div class="wrap">
+<header>
+  <div class="eyebrow">Invitation</div>
+  <h1>Linns 30th</h1>
+  <div class="countdown" id="countdown">Loading countdown…</div>
+  <div class="subline">Spain • Two Nights • House Stay</div>
+</header>
 
-    <main>
-      <!-- INFO -->
-      <section class="card">
-        <div class="inner">
-          <div class="row">
-            <div class="label">Date</div>
-            <div class="value">1–3 May 2026</div>
-          </div>
-          <div class="row">
-            <div class="label">Location</div>
-            <div class="value">Spain (details to follow)</div>
-          </div>
-          <div class="row">
-            <div class="label">Dress</div>
-            <div class="value">Formal / Glitter / Wine Bar</div>
-          </div>
+<main>
+<section class="card">
+  <div class="inner">
+    <div class="row"><div class="label">Date</div><div class="value">1–3 May 2026</div></div>
+    <div class="row"><div class="label">Location</div><div class="value">Spain (details to follow)</div></div>
+    <div class="row"><div class="label">Dress</div><div class="value">Formal / Glitter / Wine Bar</div></div>
 
-          <div class="note">
-            A two-night stay in a house in Spain to celebrate turning 30.
-          </div>
-        </div>
-      </section>
-
-      <!-- RSVP -->
-      <section class="card">
-        <form
-          id="rsvp-form"
-          action="https://formspree.io/f/xjknqypk"
-          method="POST"
-        >
-          <input type="hidden" name="_subject" value="RSVP – Linns 30th">
-
-          <input type="text" name="name" placeholder="Name" required>
-          <input type="email" name="email" placeholder="Email (optional)">
-
-          <select name="attendance" required>
-            <option value="" disabled selected>Attendance</option>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-          </select>
-
-          <textarea
-            name="message"
-            placeholder="If you'd like to bring a partner or special friend, let me know and we'll see what's possible depending on the house."
-          ></textarea>
-
-          <button type="submit">Send RSVP</button>
-        </form>
-
-        <p id="form-message"></p>
-      </section>
-    </main>
+    <div class="editorial-note">
+      A weekend in Spain. Good house, great people, little sleep.
+    </div>
   </div>
+</section>
 
-  <script>
-    const form = document.getElementById("rsvp-form");
-    const msg = document.getElementById("form-message");
+<section class="card">
+<form id="rsvp-form" action="https://formspree.io/f/xjknqypk" method="POST">
+  <input type="hidden" name="_subject" value="RSVP – Linns 30th">
+  <input type="text" name="name" placeholder="Name" required>
+  <input type="email" name="email" placeholder="Email (optional)">
+  <select name="attendance" required>
+    <option value="" disabled selected>Attendance</option>
+    <option>Yes</option>
+    <option>No</option>
+  </select>
+  <textarea
+    name="message"
+    placeholder="Partners or special friends can likely be arranged — depending on the house."
+  ></textarea>
+  <button type="submit">Send RSVP</button>
+</form>
+<p id="form-message"></p>
+</section>
+</main>
+</div>
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
+<script>
+/* COUNTDOWN */
+const target = new Date("May 1, 2026 18:00:00").getTime();
+const cd = document.getElementById("countdown");
 
-      const response = await fetch(form.action, {
-        method: "POST",
-        body: new FormData(form),
-        headers: { Accept: "application/json" }
-      });
+setInterval(()=>{
+  const now = Date.now();
+  const diff = target - now;
+  if(diff<=0){cd.textContent="IT’S TIME";return;}
+  const d=Math.floor(diff/86400000);
+  const h=Math.floor(diff%86400000/3600000);
+  const m=Math.floor(diff%3600000/60000);
+  cd.textContent=`STARTS IN ${d}D ${h}H ${m}M`;
+},1000);
 
-      if (response.ok) {
-        msg.textContent = "RSVP received. See you in Spain.";
-        form.reset();
-      } else {
-        msg.textContent = "Something went wrong. Please try again.";
-      }
-    });
-  </script>
+/* RSVP */
+const form=document.getElementById("rsvp-form");
+const msg=document.getElementById("form-message");
+
+form.addEventListener("submit",async e=>{
+  e.preventDefault();
+  const res=await fetch(form.action,{method:"POST",body:new FormData(form),headers:{Accept:"application/json"}});
+  if(res.ok){
+    msg.textContent="RSVP received. See you in Spain.";
+    form.reset();
+  }else{
+    msg.textContent="Something went wrong. Try again.";
+  }
+});
+</script>
 </body>
 </html>
