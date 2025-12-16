@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Linns 30th</title>
 
-  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=IBM+Plex+Mono:wght@300..600&display=swap" rel="stylesheet">
 
   <style>
@@ -30,7 +29,7 @@
       overflow-x:hidden;
     }
 
-    /* grain */
+    /* subtle grain */
     body::after{
       content:"";
       position:fixed;
@@ -40,18 +39,31 @@
       mix-blend-mode:overlay;
     }
 
+    /* ✅ FULL SCREEN BLINK / STROBE */
+    .blink{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background:#fff;
+      opacity:0;
+      z-index:9999;
+      animation: fullBlink 1.05s infinite;
+      mix-blend-mode: screen;
+    }
+    /* Tweak this for intensity */
+    @keyframes fullBlink{
+      0%, 82% { opacity: 0; }
+      83% { opacity: .18; }
+      86% { opacity: 0; }
+      90% { opacity: .10; }
+      92% { opacity: 0; }
+      100% { opacity: 0; }
+    }
+
     .wrap{
       width:min(920px,100%);
       display:grid;
       gap:22px;
-      animation:strobe 6.5s infinite;
-    }
-
-    @keyframes strobe{
-      0%,96%,100%{filter:none}
-      97%{filter:brightness(1.15)}
-      98%{filter:brightness(.9)}
-      99%{filter:brightness(1.05)}
     }
 
     /* HERO */
@@ -60,8 +72,7 @@
       border:1px solid var(--border);
       padding:26px 22px;
       overflow:hidden;
-      background:
-        radial-gradient(800px 200px at 40% 0%, rgba(255,255,255,.12), transparent 60%);
+      background: radial-gradient(800px 200px at 40% 0%, rgba(255,255,255,.12), transparent 60%);
     }
 
     /* scanline */
@@ -79,10 +90,7 @@
       animation:scan 2.2s linear infinite;
       mix-blend-mode:screen;
     }
-
-    @keyframes scan{
-      to{ transform:translateY(60%); }
-    }
+    @keyframes scan{ to{ transform:translateY(60%); } }
 
     .eyebrow{
       font-family:"IBM Plex Mono",monospace;
@@ -111,18 +119,18 @@
       width:100%;
       mix-blend-mode:screen;
       opacity:.6;
+      pointer-events:none;
     }
-
     h1::before{
       transform:translate(2px,-1px);
       animation:glitchA 1.2s infinite steps(2,end);
+      opacity:.5;
     }
     h1::after{
       transform:translate(-2px,1px);
       animation:glitchB 1.6s infinite steps(2,end);
-      opacity:.4;
+      opacity:.35;
     }
-
     @keyframes glitchA{
       0%{clip-path:inset(0 0 85% 0)}
       50%{clip-path:inset(40% 0 25% 0)}
@@ -158,17 +166,14 @@
     }
     .ticker span{
       display:inline-block;
-      animation:roll 10s linear infinite;
+      animation:roll 9.5s linear infinite;
     }
-    @keyframes roll{
-      to{ transform:translateX(-100%); }
-    }
+    @keyframes roll{ to{ transform:translateX(-100%); } }
 
     main{
       display:grid;
       gap:22px;
     }
-
     @media(min-width:820px){
       main{ grid-template-columns:1.1fr .9fr; }
     }
@@ -182,6 +187,7 @@
 
     .inner{ padding:22px; }
 
+    /* ✅ same style rows */
     .row{
       display:flex;
       justify-content:space-between;
@@ -197,6 +203,16 @@
       letter-spacing:.22em;
       text-transform:uppercase;
       color:var(--muted);
+      white-space:nowrap;
+    }
+
+    .value{
+      font-family:"IBM Plex Mono",monospace;
+      font-size:13px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.86);
+      text-align:right;
     }
 
     .note{
@@ -219,7 +235,9 @@
       color:#fff;
       font-family:"IBM Plex Mono",monospace;
       font-size:14px;
+      outline:none;
     }
+    input:focus,select:focus,textarea:focus{ border-color:#fff; }
 
     textarea{ min-height:90px; }
 
@@ -233,6 +251,16 @@
       text-transform:uppercase;
       cursor:pointer;
     }
+    button:hover{ opacity:.86; }
+
+    #form-message{
+      padding: 0 22px 22px;
+      font-family:"IBM Plex Mono",monospace;
+      font-size:13px;
+      color:var(--muted);
+      min-height: 20px;
+      text-align:center;
+    }
 
     footer{
       text-align:center;
@@ -244,30 +272,44 @@
       padding-top:8px;
     }
 
+    /* Respect reduced motion */
     @media(prefers-reduced-motion:reduce){
       *{ animation:none!important; }
+      .blink{ display:none!important; }
     }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
+  <!-- Full-screen blink overlay -->
+  <div class="blink" aria-hidden="true"></div>
 
+  <div class="wrap">
     <header>
       <div class="eyebrow">Invitation</div>
       <h1 data-text="Linns 30th">Linns 30th</h1>
       <div class="subline">Spain • Two Nights • House Stay</div>
       <div class="ticker">
-        <span>LINN 30 • SPAIN • RSVP • LINN 30 • SPAIN • RSVP • </span>
+        <span>LINN 30 • SPAIN • RSVP • LINN 30 • SPAIN • RSVP • LINN 30 • SPAIN • RSVP • </span>
       </div>
     </header>
 
     <main>
       <section class="card">
         <div class="inner">
-          <div class="row"><div class="label">Date</div><div>1–3 May 2026</div></div>
-          <div class="row"><div class="label">Location</div><div>Spain (details to follow)</div></div>
-          <div class="row"><div class="label">Dress</div><div>Formal / Glitter / Wine Bar</div></div>
+          <div class="row">
+            <div class="label">Date</div>
+            <div class="value">1–3 May 2026</div>
+          </div>
+          <div class="row">
+            <div class="label">Location</div>
+            <div class="value">Spain (details to follow)</div>
+          </div>
+          <div class="row">
+            <div class="label">Dress</div>
+            <div class="value">Formal / Glitter / Wine Bar</div>
+          </div>
+
           <div class="note">
             A two-night stay in a house in Spain to celebrate turning 30.
           </div>
@@ -275,13 +317,29 @@
       </section>
 
       <section class="card">
+        <!-- ✅ same date/location/dress style inside RSVP card too -->
+        <div class="inner">
+          <div class="row">
+            <div class="label">Date</div>
+            <div class="value">1–3 May 2026</div>
+          </div>
+          <div class="row">
+            <div class="label">Location</div>
+            <div class="value">Spain (details to follow)</div>
+          </div>
+          <div class="row">
+            <div class="label">RSVP</div>
+            <div class="value">By Feb 2026</div>
+          </div>
+        </div>
+
         <form id="rsvp-form">
           <input type="text" id="name" placeholder="Name" required>
           <input type="email" id="email" placeholder="Email (optional)">
           <select id="attendance" required>
             <option value="" disabled selected>Attendance</option>
-            <option>Yes</option>
-            <option>No</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
           </select>
           <textarea id="message" placeholder="If you'd like to bring a partner or special friend, let me know and we'll see what's possible depending on house size."></textarea>
           <button type="submit">Send RSVP</button>
@@ -294,9 +352,34 @@
   </div>
 
   <script>
-    document.getElementById("rsvp-form").addEventListener("submit",e=>{
-      e.preventDefault();
-      document.getElementById("form-message").textContent="RSVP ready — please send the email.";
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("rsvp-form");
+      const msg = document.getElementById("form-message");
+
+      const YOUR_EMAIL = "YOUR_EMAIL_ADDRESS@example.com"; // <-- change this
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const attendance = document.getElementById("attendance").value;
+        const message = document.getElementById("message").value;
+
+        const subject = `RSVP – Linns 30th – ${name}`;
+        const body = `
+Name: ${name}
+Attendance: ${attendance}
+Email: ${email || "Not provided"}
+Note: ${message || "None"}
+        `.trim();
+
+        window.location.href =
+          `mailto:${YOUR_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+        msg.textContent = "RSVP ready — please send the email.";
+        setTimeout(() => { form.reset(); msg.textContent = ""; }, 10000);
+      });
     });
   </script>
 </body>
