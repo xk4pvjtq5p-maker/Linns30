@@ -29,6 +29,7 @@
       overflow-x:hidden;
     }
 
+    /* grain */
     body::after{
       content:"";
       position:fixed;
@@ -38,6 +39,7 @@
       mix-blend-mode:overlay;
     }
 
+    /* FULL SCREEN BLINK */
     .blink{
       position:fixed;
       inset:0;
@@ -45,17 +47,16 @@
       background:#fff;
       opacity:0;
       z-index:9999;
-      animation: fullBlink 1.05s infinite;
-      mix-blend-mode: screen;
+      animation: blink 1.1s infinite;
+      mix-blend-mode:screen;
     }
 
-    @keyframes fullBlink{
-      0%, 82% { opacity: 0; }
-      83% { opacity: .18; }
-      86% { opacity: 0; }
-      90% { opacity: .10; }
-      92% { opacity: 0; }
-      100% { opacity: 0; }
+    @keyframes blink{
+      0%,80%{opacity:0}
+      82%{opacity:.18}
+      85%{opacity:0}
+      90%{opacity:.1}
+      100%{opacity:0}
     }
 
     .wrap{
@@ -69,7 +70,6 @@
       border:1px solid var(--border);
       padding:26px 22px;
       overflow:hidden;
-      background: radial-gradient(800px 200px at 40% 0%, rgba(255,255,255,.12), transparent 60%);
     }
 
     header::before{
@@ -114,13 +114,13 @@
       left:0; top:0;
       width:100%;
       mix-blend-mode:screen;
-      opacity:.6;
       pointer-events:none;
     }
 
     h1::before{
       transform:translate(2px,-1px);
       animation:glitchA 1.2s infinite steps(2,end);
+      opacity:.5;
     }
 
     h1::after{
@@ -170,12 +170,27 @@
       gap:18px;
     }
 
+    .row:last-child{ border-bottom:none; }
+
     .label{
       font-family:"IBM Plex Mono",monospace;
       font-size:12px;
       letter-spacing:.22em;
       text-transform:uppercase;
       color:var(--muted);
+    }
+
+    .value{
+      font-family:"IBM Plex Mono",monospace;
+      font-size:13px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+    }
+
+    .note{
+      margin-top:18px;
+      color:var(--muted);
+      line-height:1.6;
     }
 
     form{
@@ -223,10 +238,33 @@
     <header>
       <div class="eyebrow">Invitation</div>
       <h1 data-text="Linns 30th">Linns 30th</h1>
-      <div class="subline">Spain • Two Nights • Cool House Vibes</div>
+      <div class="subline">Spain • Two Nights • House Stay</div>
     </header>
 
     <main>
+      <!-- INFO -->
+      <section class="card">
+        <div class="inner">
+          <div class="row">
+            <div class="label">Date</div>
+            <div class="value">1–3 May 2026</div>
+          </div>
+          <div class="row">
+            <div class="label">Location</div>
+            <div class="value">Spain (details to follow)</div>
+          </div>
+          <div class="row">
+            <div class="label">Dress</div>
+            <div class="value">Formal / Glitter / Wine Bar</div>
+          </div>
+
+          <div class="note">
+            A two-night stay in a house in Spain to celebrate turning 30.
+          </div>
+        </div>
+      </section>
+
+      <!-- RSVP -->
       <section class="card">
         <form
           id="rsvp-form"
@@ -264,15 +302,14 @@
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      const data = new FormData(form);
       const response = await fetch(form.action, {
         method: "POST",
-        body: data,
+        body: new FormData(form),
         headers: { Accept: "application/json" }
       });
 
       if (response.ok) {
-        msg.textContent = "RSVP received. Thank you.";
+        msg.textContent = "RSVP received. See you in Spain.";
         form.reset();
       } else {
         msg.textContent = "Something went wrong. Please try again.";
