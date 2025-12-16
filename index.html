@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>30 / 365 PARTY GIRL</title>
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=IBM+Plex+Mono:wght@300..700&display=swap");
+
+    :root{
+      /* NO PINK. */
+      --bg: #07070a;
+      --panel: rgba(12, 12, 18, .72);
+      --ink: #f4f4ff;
+
+      /* 365 vibe: acid + chrome + electric */
+      --acid: #B6FF00;
+      --blue: #2D6BFF;
+      --ice: #A7FFF6;
+      --chrome: rgba(255,255,255,.75);
+
+      --border: 1px solid rgba(255,255,255,.16);
+      --radius: 18px;
+      --shadow: 0 20px 70px rgba(0,0,0,.55);
+    }
+
+    *{ box-sizing:border-box; margin:0; padding:0; }
+    html,body{ height:100%; }
+
+    body{
+      color: var(--ink);
+      background: radial-gradient(1200px 900px at 20% 10%, rgba(45,107,255,.20), transparent 55%),
+                  radial-gradient(900px 700px at 90% 40%, rgba(182,255,0,.14), transparent 55%),
+                  radial-gradient(700px 500px at 50% 100%, rgba(167,255,246,.08), transparent 60%),
+                  linear-gradient(180deg, #05050a 0%, #07070a 45%, #04040a 100%);
+      font-family: "Space Grotesk", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 28px 18px;
+      overflow-x:hidden;
+    }
+
+    /* grain + scanlines overlay (instant “cool”) */
+    body::before{
+      content:"";
+      position: fixed;
+      inset: 0;
+      pointer-events:none;
+      background:
+        repeating-linear-gradient( to bottom,
+          rgba(255,255,255,.03) 0px,
+          rgba(255,255,255,.03) 1px,
+          rgba(0,0,0,.00) 2px,
+          rgba(0,0,0,.00) 4px
+        );
+      mix-blend-mode: overlay;
+      opacity: .35;
+    }
+    body::after{
+      content:"";
+      position: fixed;
+      inset: 0;
+      pointer-events:none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+      opacity:.22;
+    }
+
+    .wrap{
+      width:min(980px, 100%);
+      display:grid;
+      gap: 18px;
+    }
+
+    header{
+      position: relative;
+      padding: 22px 22px 18px;
+      border: var(--border);
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    /* “sticker” corner */
+    .sticker{
+      position:absolute;
+      top:14px; right:14px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.22);
+      background: rgba(0,0,0,.35);
+      font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 12px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--chrome);
+      backdrop-filter: blur(10px);
+    }
+    .sticker b{ color: var(--acid); }
+
+    .kicker{
+      font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      font-size: 12px;
+      color: rgba(244,244,255,.72);
+    }
+
+    .title{
+      margin-top: 10px;
+      font-weight: 700;
+      line-height: .92;
+      text-transform: uppercase;
+      font-size: clamp(44px, 6.5vw, 86px);
+      letter-spacing: .08em;
+      position: relative;
+      text-shadow:
+        0 0 22px rgba(182,255,0,.35),
+        0 0 40px rgba(45,107,255,.22);
+    }
+
+    /* glitch layers */
+    .title::before, .title::after{
+      content: attr(data-text);
+      position:absolute;
+      left:0; top:0;
+      width:100%;
+      opacity:.7;
+      clip-path: inset(0 0 0 0);
+      mix-blend-mode: screen;
+    }
+    .title::before{
+      transform: translate(2px, -1px);
+      color: var(--acid);
+      animation: glitch 2.2s infinite linear alternate-reverse;
+    }
+    .title::after{
+      transform: translate(-2px, 1px);
+      color: var(--blue);
+      animation: glitch 2.8s infinite linear alternate;
+    }
+
+    @keyframes glitch{
+      0%{ clip-path: inset(0 0 92% 0); }
+      12%{ clip-path: inset(14% 0 60% 0); }
+      24%{ clip-path: inset(52% 0 18% 0); }
+      36%{ clip-path: inset(20% 0 68% 0); }
+      48%{ clip-path: inset(70% 0 8% 0); }
+      60%{ clip-path: inset(36% 0 46% 0); }
+      72%{ clip-path: inset(8% 0 80% 0); }
+      84%{ clip-path: inset(44% 0 34% 0); }
+      100%{ clip-path: inset(0 0 92% 0); }
+    }
+
+    .sub{
+      margin-top: 10px;
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items:center;
+    }
+    .pill{
+      display:inline-flex;
+      gap: 8px;
+      align-items:center;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.28);
+      backdrop-filter: blur(10px);
+      font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 12px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(244,244,255,.78);
+    }
+    .dot{
+      width: 8px; height: 8px; border-radius: 99px;
+      background: var(--acid);
+      box-shadow: 0 0 10px rgba(182,255,0,.55);
+    }
+
+    main{
+      display:grid;
+      gap: 18px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 820px){
+      main{ grid-template-columns: 1.1fr .9fr; }
+    }
+
+    .card{
+      border: var(--border);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      backdrop-filter: blur(14px);
+    }
+
+    .card .inner{
+      padding: 18px;
+    }
+
+    .grid{
+      display:grid;
+      gap: 12px;
+    }
+
+    .row{
+      display:flex;
+      justify-content:space-between;
+      gap: 16px;
+      padding: 14px 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 14px;
+      background: rgba(255,255,255,.03);
+    }
+    .label{
+      font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 12px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(244,244,255,.62);
+      white-space:nowrap;
+    }
+    .value{
+      font-weight: 600;
+      text-align:right;
+    }
+    .value strong{
+      color: var(--acid);
+      font-weight: 700;
+      text-shadow: 0 0 18px rgba(182,255,0,.22);
+    }
+
+    .note{
+      margin-top: 14px;
+      padding: 14px 14px;
+      border-radius: 14px;
+      border: 1px dashed rgba(167,255,246,.35);
+      color: rgba(244,244,255,.78);
+      line-height: 1.5;
+    }
+
+    .rsvp-title{
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap: 12px;
+      padding: 16px 18px 0;
+    }
+    .rsvp-title h3{
+      font-size: 18px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .deadline{
+      font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 12px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: rgba(244,244,255,.62);
+    }
+    .deadline b{ color: var(--ice); }
+
+    form{
+      padding: 14px 18px 18px;
+      display:grid;
+      gap: 12px;
+    }
+
+    input, select, textarea{
+      width:100%;
+      padding: 14px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.35);
+      color: var(--ink);
+      outline: none;
+      font-size: 15px;
+      font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+    textarea{ min-height: 96px; resize: vertical; }
+
+    input:focus, select:focus, textarea:focus{
+      border-color: rgba(182,255,0,.55);
+      box-shadow: 0 0 0 4px rgba(182,255,0,.12);
+    }
+
+    .btn{
+      border: 0;
+      border-radius: 14px;
+      padding: 14px 14px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      background:
+        linear-gradient(135deg, rgba(182,255,0,.95), rgba(45,107,255,.95));
+      color: #07070a;
+      box-shadow: 0 12px 30px rgba(45,107,255,.22), 0 14px 36px rgba(182,255,0,.12);
+      transition: transform .15s ease, filter .15s ease;
+    }
+    .btn:hover{ transform: translateY(-2px); filter: brightness(1.05); }
+    .btn:active{ transform: translateY(0px); }
+
+    #form-message{
+      padding: 0 18px 18px;
+      text-align:center;
+      font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      color: rgba(244,244,255,.8);
+      min-height: 20px;
+    }
+    #form-message strong{ color: var(--acid); }
+
+    footer{
+      padding: 14px 4px 0;
+      text-align:center;
+      font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 12px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(244,244,255,.55);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <header>
+      <div class="sticker">30 / <b>365</b> // SPAIN</div>
+      <div class="kicker">two nights • house takeover • no cringe</div>
+      <h1 class="title" data-text="30 PARTY GIRL">30 PARTY GIRL</h1>
+      <div class="sub">
+        <span class="pill"><span class="dot"></span> invite only</span>
+        <span class="pill">villa mode</span>
+        <span class="pill">dress: glitter / wine bar / formal-ish</span>
+      </div>
+    </header>
+
+    <main>
+      <section class="card">
+        <div class="inner">
+          <div class="grid">
+            <div class="row">
+              <div class="label">DATE</div>
+              <div class="value"><strong>1–3 MAY 2026</strong></div>
+            </div>
+            <div class="row">
+              <div class="label">LOCATION</div>
+              <div class="value">SPAIN (TBD)</div>
+            </div>
+            <div class="row">
+              <div class="label">PLAN</div>
+              <div class="value">2 nights • pool/house • chaos</div>
+            </div>
+          </div>
+
+          <div class="note">
+            Welcome to a two-night house stay in the Spanish countryside.
+            Bring your best looks, your loudest laugh, and zero weird energy.
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="rsvp-title">
+          <h3>RSVP</h3>
+          <div class="deadline">by <b>FEB 2026</b></div>
+        </div>
+
+        <form id="rsvp-form">
+          <input type="text" id="name" placeholder="YOUR PARTY NAME" required />
+          <input type="email" id="email" placeholder="YOUR EMAIL (optional)" />
+          <select id="attendance" required>
+            <option value="" disabled selected>CAN YOU MAKE IT?</option>
+            <option value="Yes">YES — I’m in.</option>
+            <option value="No">NO — tragic, but ok.</option>
+          </select>
+          <textarea id="message" placeholder="PLUS-ONE / DIETARY / NOTES"></textarea>
+          <button class="btn" type="submit">CREATE RSVP</button>
+        </form>
+
+        <p id="form-message"></p>
+      </section>
+    </main>
+
+    <footer>if you know you know • 30 / 365</footer>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("rsvp-form");
+      const messageElement = document.getElementById("form-message");
+
+      // CHANGE THIS
+      const YOUR_EMAIL = "YOUR_EMAIL_ADDRESS@example.com";
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const attendance = document.getElementById("attendance").value;
+        const message = document.getElementById("message").value;
+
+        const subject = `RSVP — 30 / 365 — ${name}`;
+        const body = `
+Name: ${name}
+Attendance: ${attendance}
+Guest Email: ${email || "Not provided"}
+Notes: ${message || "None"}
+        `.trim();
+
+        window.location.href =
+          `mailto:${YOUR_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+        messageElement.innerHTML =
+          `⚡ RSVP drafted — hit <strong>Send</strong> in your email app.`;
+
+        setTimeout(() => {
+          form.reset();
+          messageElement.textContent = "";
+        }, 10000);
+      });
+    });
+  </script>
+</body>
+</html>
