@@ -29,7 +29,6 @@
       overflow-x:hidden;
     }
 
-    /* subtle grain */
     body::after{
       content:"";
       position:fixed;
@@ -39,7 +38,6 @@
       mix-blend-mode:overlay;
     }
 
-    /* ✅ FULL SCREEN BLINK / STROBE */
     .blink{
       position:fixed;
       inset:0;
@@ -50,7 +48,7 @@
       animation: fullBlink 1.05s infinite;
       mix-blend-mode: screen;
     }
-    /* Tweak this for intensity */
+
     @keyframes fullBlink{
       0%, 82% { opacity: 0; }
       83% { opacity: .18; }
@@ -66,7 +64,6 @@
       gap:22px;
     }
 
-    /* HERO */
     header{
       position:relative;
       border:1px solid var(--border);
@@ -75,7 +72,6 @@
       background: radial-gradient(800px 200px at 40% 0%, rgba(255,255,255,.12), transparent 60%);
     }
 
-    /* scanline */
     header::before{
       content:"";
       position:absolute;
@@ -90,6 +86,7 @@
       animation:scan 2.2s linear infinite;
       mix-blend-mode:screen;
     }
+
     @keyframes scan{ to{ transform:translateY(60%); } }
 
     .eyebrow{
@@ -110,7 +107,6 @@
       position:relative;
     }
 
-    /* glitch */
     h1::before,
     h1::after{
       content:attr(data-text);
@@ -121,21 +117,24 @@
       opacity:.6;
       pointer-events:none;
     }
+
     h1::before{
       transform:translate(2px,-1px);
       animation:glitchA 1.2s infinite steps(2,end);
-      opacity:.5;
     }
+
     h1::after{
       transform:translate(-2px,1px);
       animation:glitchB 1.6s infinite steps(2,end);
       opacity:.35;
     }
+
     @keyframes glitchA{
       0%{clip-path:inset(0 0 85% 0)}
       50%{clip-path:inset(40% 0 25% 0)}
       100%{clip-path:inset(0 0 85% 0)}
     }
+
     @keyframes glitchB{
       0%{clip-path:inset(80% 0 0 0)}
       50%{clip-path:inset(20% 0 50% 0)}
@@ -151,43 +150,18 @@
       color:var(--muted);
     }
 
-    /* ticker */
-    .ticker{
-      margin-top:14px;
-      border-top:1px solid rgba(255,255,255,.14);
-      padding-top:10px;
-      overflow:hidden;
-      font-family:"IBM Plex Mono",monospace;
-      font-size:12px;
-      letter-spacing:.22em;
-      text-transform:uppercase;
-      color:rgba(255,255,255,.55);
-      white-space:nowrap;
-    }
-    .ticker span{
-      display:inline-block;
-      animation:roll 9.5s linear infinite;
-    }
-    @keyframes roll{ to{ transform:translateX(-100%); } }
-
     main{
       display:grid;
       gap:22px;
-    }
-    @media(min-width:820px){
-      main{ grid-template-columns:1.1fr .9fr; }
     }
 
     .card{
       border:1px solid var(--border);
       background:var(--panel);
-      transition:transform .2s ease;
     }
-    .card:hover{ transform:translateY(-2px); }
 
     .inner{ padding:22px; }
 
-    /* ✅ same style rows */
     .row{
       display:flex;
       justify-content:space-between;
@@ -195,7 +169,6 @@
       border-bottom:1px solid rgba(255,255,255,.12);
       gap:18px;
     }
-    .row:last-child{ border-bottom:none; }
 
     .label{
       font-family:"IBM Plex Mono",monospace;
@@ -203,25 +176,8 @@
       letter-spacing:.22em;
       text-transform:uppercase;
       color:var(--muted);
-      white-space:nowrap;
     }
 
-    .value{
-      font-family:"IBM Plex Mono",monospace;
-      font-size:13px;
-      letter-spacing:.06em;
-      text-transform:uppercase;
-      color:rgba(255,255,255,.86);
-      text-align:right;
-    }
-
-    .note{
-      margin-top:18px;
-      color:var(--muted);
-      line-height:1.6;
-    }
-
-    /* RSVP */
     form{
       padding:18px 22px 22px;
       display:grid;
@@ -235,9 +191,7 @@
       color:#fff;
       font-family:"IBM Plex Mono",monospace;
       font-size:14px;
-      outline:none;
     }
-    input:focus,select:focus,textarea:focus{ border-color:#fff; }
 
     textarea{ min-height:90px; }
 
@@ -251,140 +205,78 @@
       text-transform:uppercase;
       cursor:pointer;
     }
-    button:hover{ opacity:.86; }
 
     #form-message{
-      padding: 0 22px 22px;
+      padding:0 22px 22px;
       font-family:"IBM Plex Mono",monospace;
       font-size:13px;
       color:var(--muted);
-      min-height: 20px;
       text-align:center;
-    }
-
-    footer{
-      text-align:center;
-      font-family:"IBM Plex Mono",monospace;
-      font-size:12px;
-      letter-spacing:.22em;
-      text-transform:uppercase;
-      color:rgba(255,255,255,.45);
-      padding-top:8px;
-    }
-
-    /* Respect reduced motion */
-    @media(prefers-reduced-motion:reduce){
-      *{ animation:none!important; }
-      .blink{ display:none!important; }
     }
   </style>
 </head>
 
 <body>
-  <!-- Full-screen blink overlay -->
-  <div class="blink" aria-hidden="true"></div>
+  <div class="blink"></div>
 
   <div class="wrap">
     <header>
       <div class="eyebrow">Invitation</div>
       <h1 data-text="Linns 30th">Linns 30th</h1>
-      <div class="subline">Spain • Two Nights • Cool House vibes</div>
-      <div class="ticker">
-        <span>LINN 30 • SPAIN • RSVP • LINN 30 • SPAIN • RSVP • LINN 30 • SPAIN • RSVP • </span>
-      </div>
+      <div class="subline">Spain • Two Nights • Cool House Vibes</div>
     </header>
 
     <main>
       <section class="card">
-        <div class="inner">
-          <div class="row">
-            <div class="label">Date</div>
-            <div class="value">1–3 May 2026</div>
-          </div>
-          <div class="row">
-            <div class="label">Location</div>
-            <div class="value">Spain (details to follow)</div>
-          </div>
-          <div class="row">
-            <div class="label">Dress</div>
-            <div class="value">Formal / Glitter / Wine Bar</div>
-          </div>
-
-          <div class="note">
-            A two-night stay in a house in Spain to celebrate turning 30.
-          </div>
-        </div>
-      </section>
-
-      <section class="card">
-        <!-- ✅ same date/location/dress style inside RSVP card too -->
-        <div class="inner">
-          <div class="row">
-            <div class="label">Date</div>
-            <div class="value">1–3 May 2026</div>
-          </div>
-          <div class="row">
-            <div class="label">Location</div>
-            <div class="value">Spain (details to follow)</div>
-          </div>
-          <div class="row">
-            <div class="label">RSVP</div>
-            <div class="value">By Feb 2026</div>
-          </div>
-        </div>
-
         <form
-  id="rsvp-form"
-  action="https://formspree.io/f/xjknqypk"
-  method="POST"
->
+          id="rsvp-form"
+          action="https://formspree.io/f/xjknqypk"
+          method="POST"
+        >
+          <input type="hidden" name="_subject" value="RSVP – Linns 30th">
 
-          <input type="text" id="name" placeholder="Name" required>
-          <input type="email" id="email" placeholder="Email (optional)">
-          <select id="attendance" required>
+          <input type="text" name="name" placeholder="Name" required>
+          <input type="email" name="email" placeholder="Email (optional)">
+
+          <select name="attendance" required>
             <option value="" disabled selected>Attendance</option>
             <option value="Yes">Yes</option>
             <option value="No">No</option>
           </select>
-          <textarea id="message" placeholder="If you'd like to bring a partner or special friend, let me know and we'll see what's possible depending on the house."></textarea>
+
+          <textarea
+            name="message"
+            placeholder="If you'd like to bring a partner or special friend, let me know and we'll see what's possible depending on the house."
+          ></textarea>
+
           <button type="submit">Send RSVP</button>
         </form>
+
         <p id="form-message"></p>
       </section>
     </main>
-
-    <footer>Linn • 30</footer>
   </div>
 
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const form = document.getElementById("rsvp-form");
-      const msg = document.getElementById("form-message");
+    const form = document.getElementById("rsvp-form");
+    const msg = document.getElementById("form-message");
 
-      const YOUR_EMAIL = "YOUR_EMAIL_ADDRESS@example.com"; // <-- change this
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
 
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
-
-        const name = document.getElementById("name").value;
-        const email = document.getElementById("email").value;
-        const attendance = document.getElementById("attendance").value;
-        const message = document.getElementById("message").value;
-
-        const subject = `RSVP – Linns 30th – ${name}`;
-        const body = `
-Name: ${name}
-Attendance: ${attendance}
-Email: ${email || "Not provided"}
-Note: ${message || "None"}
-        `.trim();
-
-        window.location.href =
-          `mailto:${YOUR_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-        msg.textContent = "RSVP ready — please send the email.";
-        setTimeout(() => { form.reset(); msg.textContent = ""; }, 10000);
+      const data = new FormData(form);
+      const response = await fetch(form.action, {
+        method: "POST",
+        body: data,
+        headers: { Accept: "application/json" }
       });
+
+      if (response.ok) {
+        msg.textContent = "RSVP received. Thank you.";
+        form.reset();
+      } else {
+        msg.textContent = "Something went wrong. Please try again.";
+      }
     });
   </script>
 </body>
