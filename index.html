@@ -5,208 +5,247 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Linns 30th</title>
 
-  <style>
-    @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=IBM+Plex+Mono:wght@300..600&display=swap");
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=IBM+Plex+Mono:wght@300..600&display=swap" rel="stylesheet">
 
+  <style>
     :root{
-      --bg: #000000;
-      --panel: rgba(255,255,255,.04);
-      --text: #ffffff;
-      --muted: rgba(255,255,255,.65);
-      --border: rgba(255,255,255,.18);
+      --bg:#000;
+      --panel:rgba(255,255,255,.04);
+      --text:#fff;
+      --muted:rgba(255,255,255,.6);
+      --border:rgba(255,255,255,.18);
     }
 
     *{ box-sizing:border-box; margin:0; padding:0; }
 
     body{
-      background: #000;
-      color: var(--text);
-      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      min-height: 100vh;
+      background:#000;
+      color:var(--text);
+      font-family:Inter,system-ui,-apple-system,sans-serif;
+      min-height:100vh;
       display:flex;
       justify-content:center;
-      padding: 32px 18px;
-      letter-spacing: .01em;
+      padding:28px 16px;
+      overflow-x:hidden;
     }
 
-    /* subtle grain */
+    /* grain */
     body::after{
       content:"";
-      position: fixed;
-      inset: 0;
+      position:fixed;
+      inset:0;
       pointer-events:none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
-      mix-blend-mode: overlay;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+      mix-blend-mode:overlay;
     }
 
     .wrap{
-      width: min(920px, 100%);
+      width:min(920px,100%);
       display:grid;
-      gap: 22px;
+      gap:22px;
+      animation:strobe 6.5s infinite;
     }
 
+    @keyframes strobe{
+      0%,96%,100%{filter:none}
+      97%{filter:brightness(1.15)}
+      98%{filter:brightness(.9)}
+      99%{filter:brightness(1.05)}
+    }
+
+    /* HERO */
     header{
-      border: 1px solid var(--border);
-      padding: 28px 24px;
+      position:relative;
+      border:1px solid var(--border);
+      padding:26px 22px;
+      overflow:hidden;
+      background:
+        radial-gradient(800px 200px at 40% 0%, rgba(255,255,255,.12), transparent 60%);
+    }
+
+    /* scanline */
+    header::before{
+      content:"";
+      position:absolute;
+      inset:-40% -10%;
+      background:linear-gradient(
+        transparent 0%,
+        rgba(255,255,255,.15) 48%,
+        rgba(255,255,255,.3) 50%,
+        rgba(255,255,255,.15) 52%,
+        transparent 100%
+      );
+      animation:scan 2.2s linear infinite;
+      mix-blend-mode:screen;
+    }
+
+    @keyframes scan{
+      to{ transform:translateY(60%); }
     }
 
     .eyebrow{
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 12px;
-      letter-spacing: .24em;
-      text-transform: uppercase;
-      color: var(--muted);
+      font-family:"IBM Plex Mono",monospace;
+      font-size:12px;
+      letter-spacing:.25em;
+      text-transform:uppercase;
+      color:var(--muted);
     }
 
     h1{
-      margin-top: 14px;
-      font-size: clamp(40px, 7vw, 84px);
-      font-weight: 600;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      line-height: .95;
+      margin-top:14px;
+      font-size:clamp(44px,7vw,92px);
+      font-weight:600;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      line-height:.92;
+      position:relative;
+    }
+
+    /* glitch */
+    h1::before,
+    h1::after{
+      content:attr(data-text);
+      position:absolute;
+      left:0; top:0;
+      width:100%;
+      mix-blend-mode:screen;
+      opacity:.6;
+    }
+
+    h1::before{
+      transform:translate(2px,-1px);
+      animation:glitchA 1.2s infinite steps(2,end);
+    }
+    h1::after{
+      transform:translate(-2px,1px);
+      animation:glitchB 1.6s infinite steps(2,end);
+      opacity:.4;
+    }
+
+    @keyframes glitchA{
+      0%{clip-path:inset(0 0 85% 0)}
+      50%{clip-path:inset(40% 0 25% 0)}
+      100%{clip-path:inset(0 0 85% 0)}
+    }
+    @keyframes glitchB{
+      0%{clip-path:inset(80% 0 0 0)}
+      50%{clip-path:inset(20% 0 50% 0)}
+      100%{clip-path:inset(80% 0 0 0)}
     }
 
     .subline{
-      margin-top: 10px;
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 13px;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: var(--muted);
+      margin-top:10px;
+      font-family:"IBM Plex Mono",monospace;
+      font-size:13px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+
+    /* ticker */
+    .ticker{
+      margin-top:14px;
+      border-top:1px solid rgba(255,255,255,.14);
+      padding-top:10px;
+      overflow:hidden;
+      font-family:"IBM Plex Mono",monospace;
+      font-size:12px;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.55);
+      white-space:nowrap;
+    }
+    .ticker span{
+      display:inline-block;
+      animation:roll 10s linear infinite;
+    }
+    @keyframes roll{
+      to{ transform:translateX(-100%); }
     }
 
     main{
       display:grid;
-      gap: 22px;
+      gap:22px;
     }
 
-    @media (min-width: 820px){
-      main{ grid-template-columns: 1.1fr .9fr; }
+    @media(min-width:820px){
+      main{ grid-template-columns:1.1fr .9fr; }
     }
 
     .card{
-      border: 1px solid var(--border);
-      background: var(--panel);
+      border:1px solid var(--border);
+      background:var(--panel);
+      transition:transform .2s ease;
     }
+    .card:hover{ transform:translateY(-2px); }
 
-    .card .inner{
-      padding: 22px;
-    }
+    .inner{ padding:22px; }
 
     .row{
       display:flex;
       justify-content:space-between;
-      gap: 18px;
-      padding: 14px 0;
-      border-bottom: 1px solid rgba(255,255,255,.12);
+      padding:14px 0;
+      border-bottom:1px solid rgba(255,255,255,.12);
+      gap:18px;
     }
-    .row:last-child{ border-bottom: none; }
+    .row:last-child{ border-bottom:none; }
 
     .label{
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 12px;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      color: var(--muted);
-      white-space:nowrap;
-    }
-
-    .value{
-      font-weight: 500;
-      text-align:right;
+      font-family:"IBM Plex Mono",monospace;
+      font-size:12px;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:var(--muted);
     }
 
     .note{
-      margin-top: 18px;
-      line-height: 1.6;
-      color: var(--muted);
+      margin-top:18px;
+      color:var(--muted);
+      line-height:1.6;
     }
 
     /* RSVP */
-    .rsvp-head{
-      padding: 22px 22px 0;
-      display:flex;
-      justify-content:space-between;
-      align-items:baseline;
-      gap: 12px;
-    }
-
-    .rsvp-head h3{
-      font-size: 18px;
-      font-weight: 600;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-
-    .deadline{
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 12px;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
     form{
-      padding: 18px 22px 22px;
+      padding:18px 22px 22px;
       display:grid;
-      gap: 14px;
+      gap:14px;
     }
 
-    input, select, textarea{
-      width:100%;
-      padding: 14px;
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--text);
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 14px;
-      outline:none;
+    input,select,textarea{
+      background:transparent;
+      border:1px solid var(--border);
+      padding:14px;
+      color:#fff;
+      font-family:"IBM Plex Mono",monospace;
+      font-size:14px;
     }
 
-    textarea{
-      min-height: 90px;
-      resize: vertical;
-    }
-
-    input:focus, select:focus, textarea:focus{
-      border-color: #fff;
-    }
+    textarea{ min-height:90px; }
 
     button{
-      margin-top: 6px;
-      padding: 14px;
-      background: #fff;
-      color: #000;
-      border: none;
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 14px;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      cursor: pointer;
-    }
-
-    button:hover{
-      opacity: .85;
-    }
-
-    #form-message{
-      padding: 0 22px 22px;
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 13px;
-      color: var(--muted);
-      min-height: 20px;
-      text-align:center;
+      padding:14px;
+      background:#fff;
+      color:#000;
+      border:none;
+      font-family:"IBM Plex Mono",monospace;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      cursor:pointer;
     }
 
     footer{
       text-align:center;
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 12px;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.45);
-      padding-top: 8px;
+      font-family:"IBM Plex Mono",monospace;
+      font-size:12px;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.45);
+      padding-top:8px;
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      *{ animation:none!important; }
     }
   </style>
 </head>
@@ -216,51 +255,37 @@
 
     <header>
       <div class="eyebrow">Invitation</div>
-      <h1>Linns 30th</h1>
+      <h1 data-text="Linns 30th">Linns 30th</h1>
       <div class="subline">Spain • Two Nights • House Stay</div>
+      <div class="ticker">
+        <span>LINN 30 • SPAIN • RSVP • LINN 30 • SPAIN • RSVP • </span>
+      </div>
     </header>
 
     <main>
       <section class="card">
         <div class="inner">
-          <div class="row">
-            <div class="label">Date</div>
-            <div class="value">1–3 May 2026</div>
-          </div>
-          <div class="row">
-            <div class="label">Location</div>
-            <div class="value">Spain (details to follow)</div>
-          </div>
-          <div class="row">
-            <div class="label">Dress</div>
-            <div class="value">Formal / Glitter / Wine Bar</div>
-          </div>
-
+          <div class="row"><div class="label">Date</div><div>1–3 May 2026</div></div>
+          <div class="row"><div class="label">Location</div><div>Spain (details to follow)</div></div>
+          <div class="row"><div class="label">Dress</div><div>Formal / Glitter / Wine Bar</div></div>
           <div class="note">
-            A relaxed two-night stay in a house in Spain to celebrate turning 30.
-            More details will follow closer to the date.
+            A two-night stay in a house in Spain to celebrate turning 30.
           </div>
         </div>
       </section>
 
       <section class="card">
-        <div class="rsvp-head">
-          <h3>RSVP</h3>
-          <div class="deadline">By Feb 2026</div>
-        </div>
-
         <form id="rsvp-form">
-          <input type="text" id="name" placeholder="Name" required />
-          <input type="email" id="email" placeholder="Email (optional)" />
+          <input type="text" id="name" placeholder="Name" required>
+          <input type="email" id="email" placeholder="Email (optional)">
           <select id="attendance" required>
             <option value="" disabled selected>Attendance</option>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
+            <option>Yes</option>
+            <option>No</option>
           </select>
-          <textarea id="message" placeholder="If you’d like to bring a partner or special friend, let me know and we’ll see what’s possible depending on house size."></textarea>
+          <textarea id="message" placeholder="If you'd like to bring a partner or special friend, let me know and we'll see what's possible depending on house size."></textarea>
           <button type="submit">Send RSVP</button>
         </form>
-
         <p id="form-message"></p>
       </section>
     </main>
@@ -269,37 +294,9 @@
   </div>
 
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const form = document.getElementById("rsvp-form");
-      const messageElement = document.getElementById("form-message");
-
-      const YOUR_EMAIL = "YOUR_EMAIL_ADDRESS@example.com";
-
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
-
-        const name = document.getElementById("name").value;
-        const email = document.getElementById("email").value;
-        const attendance = document.getElementById("attendance").value;
-        const message = document.getElementById("message").value;
-
-        const subject = `RSVP – Linns 30th – ${name}`;
-        const body = `
-Name: ${name}
-Attendance: ${attendance}
-Email: ${email || "Not provided"}
-Note: ${message || "None"}
-        `.trim();
-
-        window.location.href =
-          `mailto:${YOUR_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-        messageElement.textContent = "RSVP ready — please send the email.";
-        setTimeout(() => {
-          form.reset();
-          messageElement.textContent = "";
-        }, 10000);
-      });
+    document.getElementById("rsvp-form").addEventListener("submit",e=>{
+      e.preventDefault();
+      document.getElementById("form-message").textContent="RSVP ready — please send the email.";
     });
   </script>
 </body>
