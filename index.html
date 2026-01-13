@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Linns 30th</title>
 
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-P92E1P6J2X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-P92E1P6J2X');
+</script>
+
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=IBM+Plex+Mono:wght@300..600&display=swap" rel="stylesheet">
 
 <style>
@@ -145,7 +154,6 @@ main{display:grid;gap:22px;}
   text-transform:uppercase;
 }
 
-/* NEW COOLER TEXT STYLE */
 .editorial-note{
   margin-top:18px;
   font-family:"IBM Plex Mono",monospace;
@@ -260,10 +268,22 @@ const msg=document.getElementById("form-message");
 
 form.addEventListener("submit",async e=>{
   e.preventDefault();
-  const res=await fetch(form.action,{method:"POST",body:new FormData(form),headers:{Accept:"application/json"}});
+  const res=await fetch(form.action,{
+    method:"POST",
+    body:new FormData(form),
+    headers:{Accept:"application/json"}
+  });
+
   if(res.ok){
     msg.textContent="RSVP received. See you in Spain.";
     form.reset();
+
+    /* GA EVENT */
+    gtag('event', 'rsvp_submitted', {
+      event_category: 'engagement',
+      event_label: 'RSVP Form'
+    });
+
   }else{
     msg.textContent="Something went wrong. Try again.";
   }
